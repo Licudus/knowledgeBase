@@ -1,15 +1,16 @@
 <template>
     <div class="login-box">
         <el-dialog title="登录" :visible.sync="dialogFormVisible">
-            <el-form class="login-form" :label-position="'right'" label-width="60px" :model="formLogin">
-                <el-form-item label="账号：">
+            <el-form class="login-form" :rules="rules" ref="formLogin" :label-position="'right'" label-width="70px"
+                :model="formLogin">
+                <el-form-item label="账号：" prop="username" required>
                     <el-input v-model="formLogin.username"></el-input>
                 </el-form-item>
-                <el-form-item label="密码：">
-                    <el-input v-model="formLogin.password"></el-input>
+                <el-form-item label="密码：" prop="password" required>
+                    <el-input type="password" v-model="formLogin.password"></el-input>
                 </el-form-item>
                 <el-form-item style="margin-left: 0 !important;">
-                    <el-button type="primary" @click="submitLogin">登录</el-button>
+                    <el-button type="primary" @click="submitLogin('formLogin')">登录</el-button>
                     <el-button @click="dialogFormVisible = false">取消</el-button>
                 </el-form-item>
             </el-form>
@@ -26,30 +27,46 @@ export default {
             formLogin: {
                 username: 'forzhang',
                 password: 'xxxxxxxx'
+            },
+            rules: {
+                username: [
+                    { required: true, message: '请输入账号名称', trigger: 'blur' },
+                    { min: 3, max: 15, message: '长度在 3 到 15 个字符', trigger: 'blur' }
+                ],
+                password: [
+                    { required: true, message: '请输入密码' },
+                    { min: 3, max: 15, message: '长度在 3 到 15 个字符', trigger: 'blur' }
+                ]
+
             }
         }
     },
     methods: {
-        submitLogin() {
-            // 发送 POST 请求
-            this.axios({
-                method: 'post',
-                url: 'account/sign_in/',
-                data: {
-                    username: this.formLogin.username,
-                    password: this.formLogin.password
+        submitLogin(formName) {
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    // 发送 POST 请求
+                    this.axios({
+                        method: 'post',
+                        url: 'account/sign_in/',
+                        data: {
+                            username: this.formLogin.username,
+                            password: this.formLogin.password
+                        }
+                    }).then((response) => {
+                        this.$message({
+                            message: response.msg,
+                            type: 'success'
+                        });
+                        this.$router.push({ path: 'home' }).catch(() => { });
+                    }).catch((error) => {
+                        console.log(error);
+                    });
+                } else {
+                    console.log('error submit!!');
+                    return false;
                 }
-            }).then((response) => {
-                this.$message({
-                    message: response.msg,
-                    type: 'success'
-                });
-                console.log(this.$route);
-                this.$router.push({ path: 'home' }).catch(() => { });
-            }).catch((error) => {
-                console.log(error);
             });
-            this.dialogFormVisible = false;
         }
     }
 }

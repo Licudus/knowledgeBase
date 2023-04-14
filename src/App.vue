@@ -19,4 +19,9 @@ export default {
   margin: 0;
   padding: 0;
 }
+
+a:-webkit-any-link {
+  text-decoration: none;
+  color: #000;
+}
 </style>
