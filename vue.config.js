@@ -5,7 +5,7 @@ module.exports = defineConfig({
     proxy: {
       '/api': {
         //代理api
-        target: 'http://134.175.89.20:321', // 代理接口(注意只要域名就够了)
+        target: 'http://119.45.172.225:321', // 代理接口(注意只要域名就够了)
         changeOrigin: true, //是否跨域
         ws: true, // proxy websockets
         pathRewrite: {

@@ -4,11 +4,15 @@ import MyHome from '../pages/MyHome'
 export default new VueRouter({
     routes: [
         {
-            path: 'login',
+            path: '/',
+            redirect: '/home',
+        },
+        {
+            path: '/login',
             component: MyLogin
         },
         {
-            path: 'home',
+            path: '/home',
             component: MyHome
         }
     ]

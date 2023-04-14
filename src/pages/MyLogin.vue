@@ -45,7 +45,7 @@ export default {
                     type: 'success'
                 });
                 console.log(this.$route);
-                this.$router.push({ path: 'home' })
+                this.$router.push({ path: 'home' }).catch(() => { });
             }).catch((error) => {
                 console.log(error);
             });
