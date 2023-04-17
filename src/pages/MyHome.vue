@@ -7,8 +7,8 @@
                 </div>
                 <div class="tab">
                     <el-tabs v-model="activeName" @tab-click="handleClick">
-                        <el-tab-pane label="文章" name="first"></el-tab-pane>
-                        <el-tab-pane label="分类" name="second"></el-tab-pane>
+                        <el-tab-pane label="文章" name="home"></el-tab-pane>
+                        <el-tab-pane label="分类" name="category"></el-tab-pane>
                         <el-tab-pane label="发布文章" name="third"></el-tab-pane>
                         <el-tab-pane label="个人中心" name="fourth"></el-tab-pane>
                     </el-tabs>
@@ -79,8 +79,8 @@ export default {
     },
     methods: {
         // 点击标签切换
-        handleClick(tab, event) {
-            console.log(tab, event);
+        handleClick(tab) {
+            this.$router.push(tab.name).catch(() => { });
         },
         // 登录验证
         submitLogin(formName) {
@@ -99,20 +99,28 @@ export default {
                             message: response.msg,
                             type: 'success'
                         });
-                        // 登录成功显示用户名
+                        // 登录成功存username到localstorage里面，并读取出来显示到页面上
                         this.userNameShow = true;
                         localStorage.setItem('username', response.data.username);
                         this.userName = localStorage.getItem('username');
                         // 登录成功登录框隐藏
                         this.dialogFormVisible = false;
                     }).catch((error) => {
-                        console.log(error);
+                        this.$message.error(error.response.data.msg);
                     });
                 } else {
                     console.log('error submit!!');
                     return false;
                 }
             });
+        }
+    },
+    mounted() {
+        // 页面一挂载判断，localstorage里面是否存在用户名username，登录成功显示用户名
+        let uname = localStorage.getItem('username');
+        if (uname) {
+            this.userNameShow = true;
+            this.userName = uname;
         }
     }
 }
@@ -167,7 +175,7 @@ export default {
     background-color: #E9EEF3;
     color: #333;
     text-align: center;
-    line-height: 525px;
+    line-height: 593px;
 }
 
 body>.el-container {
