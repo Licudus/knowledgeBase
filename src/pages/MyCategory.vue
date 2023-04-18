@@ -3,8 +3,8 @@
         <!-- 操作区域 -->
         <div class="operateArea">
             <el-input v-model="inputSearh" placeholder="库名"></el-input>
-            <el-button type="primary">搜索</el-button>
-            <el-button type="success">创建</el-button>
+            <el-button type="primary" @click="searchCategory">搜索</el-button>
+            <el-button type="success" @click="addCategory">创建</el-button>
         </div>
         <!-- 列表显示区 -->
         <div class="cardType">
@@ -37,6 +37,42 @@ export default {
             inputSearh: '',//搜索库名
         }
     },
+    methods: {
+        // 创建分类
+        addCategory() {
+            this.axios({
+                method: 'post',
+                url: 'repo/manage/',
+                data: {
+                    "name": this.inputSearh,
+                    "r_type": "public"
+                }
+            }).then(res => {
+                console.log(res);
+                this.$message({
+                    message: res.msg,
+                    type: 'success'
+                });
+                this.categoryList.push(res.data);
+            })
+        },
+        // 搜索分类
+        searchCategory() {
+            this.axios({
+                method: 'get',
+                url: 'repo/common/with_user/?page=1',
+                params: {
+                    searchKey: this.inputSearh
+                }
+            }).then(res => {
+                this.$message({
+                    message: res.msg,
+                    type: 'success'
+                });
+                this.categoryList = res.data.results;
+            })
+        }
+    },
     mounted() {
         this.axios({
             method: 'get',
@@ -64,11 +100,11 @@ export default {
 .cardType {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    margin: 40px;
+    margin: 20px;
 
     .box-card {
-        margin-bottom: 20px;
+        border: none;
+        margin: 10px;
         min-width: 332px;
         position: relative;
 
