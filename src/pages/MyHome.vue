@@ -145,6 +145,7 @@ export default {
     height: 100%;
     min-height: 633px;
     margin-top: 60px;
+    margin-bottom: 60px;
 }
 
 body>.el-container {
