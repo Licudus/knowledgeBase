@@ -6,7 +6,7 @@
                     LOGO
                 </div>
                 <div class="tab">
-                    <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" router>
+                    <el-menu :default-active="this.$route.path" class="el-menu-demo" mode="horizontal" router>
                         <el-menu-item index="/home/article">文章</el-menu-item>
                         <el-menu-item index="/home/category">分类</el-menu-item>
                         <el-menu-item index="/home/publish">发布文章</el-menu-item>
@@ -21,7 +21,7 @@
                     <div class="userLogin_flex" v-else>
                         <el-avatar size="small" :src="circleUrl"></el-avatar>
                         <span>{{ userName }}</span>
-                        <span @click="exitLogin">[退出登录]</span>
+                        <span @click="exitLogin" class="exitlog">[退出登录]</span>
                     </div>
                 </div>
                 <div class="search">
@@ -43,7 +43,6 @@ export default {
     name: 'MyHome',
     data() {
         return {
-            activeIndex: '/home/article',//当前标签
             searchContent: '',//当前搜索内容
             circleUrl: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
             userNameShow: false,//用户登录名显示
@@ -59,7 +58,7 @@ export default {
         exitLogin() {
             localStorage.removeItem('username');
             // 删掉cookies，删不掉
-            Cookies.remove('name');
+            Cookies.remove('wiki-repo-auth-token');
             // 刷新页面
             this.$router.go(0);
         }
@@ -111,6 +110,10 @@ export default {
             display: flex;
             align-items: center;
             justify-content: space-around;
+
+            .exitlog {
+                cursor: pointer;
+            }
         }
     }
 }
@@ -134,7 +137,8 @@ body>.el-container {
     margin-bottom: 40px;
 }
 
-::v-deep .el-input__inner {
+::v-deep .el-input--prefix .el-input__inner {
+    padding-left: 30px;
     height: 30px;
 }
 
@@ -160,7 +164,7 @@ body>.el-container {
     padding: 8px 16px;
 }
 
-::v-deep .el-button {
+.el-button {
     color: #9da0a8;
 }
 </style>

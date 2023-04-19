@@ -5,7 +5,6 @@ import App from './App.vue'
 import VueRouter from 'vue-router'
 import axios from 'axios';
 import router from './router';
-import Cookies from 'js-cookie'
 Vue.use(ElementUI);
 Vue.use(VueRouter);
 Vue.prototype.axios = axios;
@@ -13,8 +12,6 @@ axios.defaults.baseURL = '/api';
 // 添加请求拦截器
 axios.interceptors.request.use(function (config) {
   // 在发送请求之前做些什么
-  Cookies.set('name', 'www')
-  console.log(Cookies.get('name'));
   return config;
 }, function (error) {
   // 对请求错误做些什么
@@ -32,7 +29,7 @@ axios.interceptors.response.use(function (response) {
   if (res.status == 401 && req.responseURL.indexOf('sign_in') != -1) {
     return Promise.reject(error);
   }
-  if (res.status == 401 && Cookies.get('name') != 'www') {
+  if (res.status == 401) {
     router.replace('/login');
   }
   return Promise.reject(error);
