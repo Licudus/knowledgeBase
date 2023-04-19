@@ -49,7 +49,8 @@ export default {
     methods: {
         // 点击知道当前页码
         handleCurrentChange(val) {
-            console.log(`当前页: ${val}`);
+            this.currentPage = val;
+            this.getCategory();
         },
         // 创建分类
         addCategory() {
@@ -140,7 +141,7 @@ export default {
     },
     mounted() {
         this.getCategory();
-    }
+    },
 }
 </script>
 

@@ -121,9 +121,22 @@ export default {
 // 头部和尾部
 .el-header,
 .el-footer {
+    position: fixed;
     background-color: #91c788;
     text-align: center;
     line-height: 60px;
+    width: 100%;
+    z-index: 99;
+}
+
+.el-header {
+    top: 0;
+    left: 0;
+}
+
+.el-footer {
+    bottom: 0;
+    left: 0;
 }
 
 // 主内容区
@@ -131,6 +144,7 @@ export default {
     background-color: #E9EEF3;
     height: 100%;
     min-height: 633px;
+    margin-top: 60px;
 }
 
 body>.el-container {
