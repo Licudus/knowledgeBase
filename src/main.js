@@ -1,13 +1,22 @@
 import Vue from 'vue'
+import App from './App.vue';
+// 引入elememtUI
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-import App from './App.vue'
+// 引入路由器
 import VueRouter from 'vue-router'
-import axios from 'axios';
 import router from './router';
+// 引入axios
+import axios from 'axios';
+// 引入markdown编辑器
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
+
 Vue.use(ElementUI);
 Vue.use(VueRouter);
+Vue.use(mavonEditor)
 Vue.prototype.axios = axios;
+// 设置基地址，api为代理服务器
 axios.defaults.baseURL = '/api';
 // 添加请求拦截器
 axios.interceptors.request.use(function (config) {

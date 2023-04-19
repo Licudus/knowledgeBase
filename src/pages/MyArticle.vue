@@ -1,10 +1,17 @@
 <template>
-    <div>MyArticle</div>
+    <div>
+        <mavon-editor v-model="markdownValue" />
+    </div>
 </template>
 
 <script>
 export default {
-
+    name: 'MyArticle',
+    data() {
+        return {
+            markdownValue: ''
+        }
+    },
 }
 </script>
 

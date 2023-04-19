@@ -27,8 +27,8 @@
         </div>
         <!-- 分页 -->
         <div class="paging">
-            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage"
-                :page-sizes="[2, 4, 6, 8, 10]" :page-size="10" layout="total, sizes, prev, pager, next, jumper" :total="20">
+            <el-pagination @current-change="handleCurrentChange" :current-page="currentPage" :page-size="pagesCount"
+                layout="total, prev, pager, next, jumper" :total="totalPages">
             </el-pagination>
         </div>
     </div>
@@ -41,13 +41,13 @@ export default {
         return {
             categoryList: [],//列表
             inputSearh: '',//搜索库名
-            currentPage: 4,//当前页
+            currentPage: 1,//当前页
+            totalPages: 0,//一个多少条数据
+            pagesCount: 15,//每一页多少个
         }
     },
     methods: {
-        handleSizeChange(val) {
-            console.log(`每页 ${val} 条`);
-        },
+        // 点击知道当前页码
         handleCurrentChange(val) {
             console.log(`当前页: ${val}`);
         },
@@ -73,7 +73,8 @@ export default {
                         message: res.msg,
                         type: 'success'
                     });
-                    this.categoryList.push(res.data);
+                    // this.categoryList.push(res.data);
+                    this.getCategory();
                     // 清理search框
                     this.inputSearh = '';
                     // 请求成功关闭加载中
@@ -96,8 +97,9 @@ export default {
             });
             this.axios({
                 method: 'get',
-                url: 'repo/common/with_user/?page=1',
+                url: 'repo/common/with_user/',
                 params: {
+                    page: this.currentPage,
                     searchKey: this.inputSearh
                 }
             }).then(res => {
@@ -111,24 +113,33 @@ export default {
                 // 请求成功关闭加载中
                 loading.close();
             })
+        },
+        // 获取分类
+        getCategory() {
+            const loading = this.$loading({
+                lock: true,
+                text: 'Loading',
+                spinner: 'el-icon-loading',
+                background: 'rgba(0, 0, 0, 0.7)'
+            });
+            this.axios({
+                method: 'get',
+                url: 'repo/common/with_user/',
+                params: {
+                    page: this.currentPage,
+                    searchKey: ''
+                }
+            }).then(res => {
+                this.categoryList = res.data.results;
+                this.totalPages = res.data.count;
+                loading.close();
+            }).catch(err => {
+                console.log(err);
+            })
         }
     },
     mounted() {
-        const loading = this.$loading({
-            lock: true,
-            text: 'Loading',
-            spinner: 'el-icon-loading',
-            background: 'rgba(0, 0, 0, 0.7)'
-        });
-        this.axios({
-            method: 'get',
-            url: 'repo/common/with_user/?page=1&searchKey='
-        }).then(res => {
-            this.categoryList = res.data.results;
-            loading.close();
-        }).catch(err => {
-            console.log(err);
-        })
+        this.getCategory();
     }
 }
 </script>
