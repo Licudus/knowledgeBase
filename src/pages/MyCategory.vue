@@ -199,7 +199,7 @@ export default {
 
     .card-center {
         margin: auto;
-        padding: 20px;
+        padding-bottom: 20px;
 
         .cardType {
             display: flex;
