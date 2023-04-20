@@ -28,6 +28,8 @@ body {
 
 #app {
   color: #f0f9eb;
+  height: 100%;
+  position: relative;
 }
 
 a:-webkit-any-link {

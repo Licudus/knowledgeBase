@@ -7,23 +7,25 @@
             <el-button type="success" @click="addCategory">创建</el-button>
         </div>
         <!-- 列表显示区 -->
-        <div class="cardType">
-            <el-card class="box-card" v-for="item in categoryList" :key="item.id">
-                <h2>{{ item.name }}</h2>
-                <div class="tabName">
-                    <el-tag type="warning">{{ item.r_type }}</el-tag>
-                    <i class="el-icon-user-solid"></i>
-                    <span class="separate">{{ item.creator_name }}</span>
-                </div>
-                <div class="timeName">
-                    <el-tag type="info">创建于</el-tag>
-                    <i class="el-icon-date"></i>
-                    <span class="separate">{{ item.create_at }}</span>
-                </div>
-                <div class="isLock">
-                    <i class="el-icon-unlock"></i>
-                </div>
-            </el-card>
+        <div class="card-center">
+            <div class="cardType">
+                <el-card class="box-card" v-for="item in categoryList" :key="item.id">
+                    <h2>{{ item.name }}</h2>
+                    <div class="tabName">
+                        <el-tag type="warning">{{ item.r_type }}</el-tag>
+                        <i class="el-icon-user-solid"></i>
+                        <span class="separate">{{ item.creator_name }}</span>
+                    </div>
+                    <div class="timeName">
+                        <el-tag type="info">创建于</el-tag>
+                        <i class="el-icon-date"></i>
+                        <span class="separate">{{ item.create_at }}</span>
+                    </div>
+                    <div class="isLock">
+                        <i class="el-icon-unlock"></i>
+                    </div>
+                </el-card>
+            </div>
         </div>
         <!-- 分页 -->
         <div class="paging">
@@ -147,7 +149,7 @@ export default {
 
 <style scoped lang="less">
 .container {
-    margin: auto;
+    // position: relative;
 
     .operateArea {
         width: 80%;
@@ -161,72 +163,114 @@ export default {
         }
     }
 
-    .cardType {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        margin: 20px;
+    /* 手机 */
+    @media (max-width: 767px) {
+        .card-center {
+            width: 60%;
+        }
+    }
 
-        .box-card {
-            border: none;
-            margin: 10px;
-            min-width: 260px;
-            max-height: 126px;
-            position: relative;
+    /* 平板电脑 */
+    @media (min-width: 768px) {
+        .card-center {
+            width: 80%;
+        }
+    }
 
-            h2 {
-                padding-bottom: 12px;
-                font-size: 20px;
-            }
+    /* 台式机 */
+    @media (min-width: 992px) {
+        .card-center {
+            width: 84%;
+        }
+    }
 
-            .tabName {
-                display: flex;
-                align-items: center;
-                margin-bottom: 8px;
+    /* 大桌面台式机 */
+    @media (min-width: 1300px) {
+        .card-center {
+            width: 70%;
+        }
+    }
 
-                span {
-                    font-size: 12px;
+    @media (min-width: 1500px) {
+        .card-center {
+            width: 100%;
+        }
+    }
+
+    .card-center {
+        margin: auto;
+        padding: 20px;
+
+        .cardType {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 20px;
+
+            .box-card {
+                border: none;
+                margin: 10px;
+                min-width: 260px;
+                max-height: 126px;
+                position: relative;
+
+                h2 {
+                    padding-bottom: 12px;
+                    font-size: 20px;
                 }
-            }
 
-            .timeName {
-                display: flex;
-                align-items: center;
+                .tabName {
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 8px;
 
-                span {
-                    font-size: 12px;
+                    span {
+                        font-size: 12px;
+                    }
                 }
-            }
 
-            .isLock {
-                position: absolute;
-                top: 0;
-                right: 0;
-                width: 70px;
-                height: 100%;
-                background-color: #90d4bd;
-                text-align: center;
-                line-height: 140px;
-                font-size: 20px;
-                color: whitesmoke;
-            }
+                .timeName {
+                    display: flex;
+                    align-items: center;
 
-            .el-tag {
-                margin-right: 10px;
-                height: 20px;
-                padding: 0px 5px;
-                line-height: 18px;
-            }
+                    span {
+                        font-size: 12px;
+                    }
+                }
 
-            .separate {
-                margin-left: 4px;
+                .isLock {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    width: 70px;
+                    height: 100%;
+                    background-color: #90d4bd;
+                    text-align: center;
+                    line-height: 120px;
+                    font-size: 20px;
+                    color: whitesmoke;
+                }
+
+                .el-tag {
+                    margin-right: 10px;
+                    height: 20px;
+                    padding: 0px 5px;
+                    line-height: 18px;
+                }
+
+                .separate {
+                    margin-left: 4px;
+                }
             }
         }
     }
 
+
+    // 分页
     .paging {
-        margin: auto;
-        display: table;
+        position: absolute;
+        bottom: 68px;
+        left: 50%;
+        transform: translateX(-50%);
     }
 }
 

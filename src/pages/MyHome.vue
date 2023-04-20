@@ -1,40 +1,38 @@
 <template>
-    <div>
-        <el-container>
-            <el-header>
-                <div class="logo">
-                    LOGO
+    <el-container>
+        <el-header>
+            <div class="logo">
+                LOGO
+            </div>
+            <div class="tab">
+                <el-menu :default-active="this.$route.path" class="el-menu-demo" mode="horizontal" router>
+                    <el-menu-item index="/home/article">文章</el-menu-item>
+                    <el-menu-item index="/home/category">分类</el-menu-item>
+                    <el-menu-item index="/home/publish">发布文章</el-menu-item>
+                    <el-menu-item index="/home/user">个人中心</el-menu-item>
+                </el-menu>
+            </div>
+            <div class="userLogin">
+                <div v-if="!userNameShow">
+                    <el-button round @click="goLogin">登录</el-button>
+                    <el-button round>注册</el-button>
                 </div>
-                <div class="tab">
-                    <el-menu :default-active="this.$route.path" class="el-menu-demo" mode="horizontal" router>
-                        <el-menu-item index="/home/article">文章</el-menu-item>
-                        <el-menu-item index="/home/category">分类</el-menu-item>
-                        <el-menu-item index="/home/publish">发布文章</el-menu-item>
-                        <el-menu-item index="/home/user">个人中心</el-menu-item>
-                    </el-menu>
+                <div class="userLogin_flex" v-else>
+                    <el-avatar size="small" :src="circleUrl"></el-avatar>
+                    <span>{{ userName }}</span>
+                    <span @click="exitLogin" class="exitlog">[退出登录]</span>
                 </div>
-                <div class="userLogin">
-                    <div v-if="!userNameShow">
-                        <el-button round @click="goLogin">登录</el-button>
-                        <el-button round>注册</el-button>
-                    </div>
-                    <div class="userLogin_flex" v-else>
-                        <el-avatar size="small" :src="circleUrl"></el-avatar>
-                        <span>{{ userName }}</span>
-                        <span @click="exitLogin" class="exitlog">[退出登录]</span>
-                    </div>
-                </div>
-                <div class="search">
-                    <el-input placeholder="请输入内容" prefix-icon="el-icon-search" v-model="searchContent">
-                    </el-input>
-                </div>
-            </el-header>
-            <el-main>
-                <router-view></router-view>
-            </el-main>
-            <el-footer>Footer</el-footer>
-        </el-container>
-    </div>
+            </div>
+            <div class="search">
+                <el-input placeholder="请输入内容" prefix-icon="el-icon-search" v-model="searchContent">
+                </el-input>
+            </div>
+        </el-header>
+        <el-main>
+            <router-view></router-view>
+        </el-main>
+        <el-footer>Footer</el-footer>
+    </el-container>
 </template>
 
 <script>
@@ -75,6 +73,10 @@ export default {
 </script>
 
 <style scoped lang="less">
+.el-container.is-vertical {
+    height: 100%;
+}
+
 .el-header {
 
     // logo
@@ -143,9 +145,9 @@ export default {
 .el-main {
     background-color: #E9EEF3;
     height: 100%;
-    min-height: 633px;
     margin-top: 60px;
     margin-bottom: 60px;
+    padding: 0;
 }
 
 body>.el-container {
