@@ -44,6 +44,21 @@ axios.interceptors.response.use(function (response) {
   return Promise.reject(error);
 });
 
+// 全局路由守卫
+router.beforeEach((to, from, next) => {
+  if (to.meta.requireAuth) {// reqireAuth为true，则该路由需要判断使用登录
+    if (localStorage.getItem('username')) {
+      next();
+    } else {
+      next({
+        path: '/login'
+      })
+    }
+  } else {
+    next();
+  }
+})
+
 Vue.config.productionTip = false
 
 new Vue({

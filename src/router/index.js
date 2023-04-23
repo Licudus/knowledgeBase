@@ -1,8 +1,6 @@
 import VueRouter from 'vue-router'
 import MyHome from '../pages/MyHome'
 import MyLogin from '../pages/MyLogin'
-// import MyArticle from '../pages/MyArticle'
-// import MyCategory from '../pages/MyCategory'
 export default new VueRouter({
     routes: [
         {
@@ -27,7 +25,10 @@ export default new VueRouter({
                 },
                 {
                     path: 'publish',
-                    component: () => import('../pages/MyArticle')
+                    meta: {
+                        requireAuth: true
+                    },
+                    component: () => import('../pages/MyPublish')
                 },
                 {
                     path: 'user',
