@@ -11,10 +11,20 @@ import axios from 'axios';
 // 引入markdown编辑器
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
+// 引入swiper
+import SwiperClass, { Pagination, Navigation } from 'swiper'
+import VueAwesomeSwiper from 'vue-awesome-swiper';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+
 
 Vue.use(ElementUI);
 Vue.use(VueRouter);
-Vue.use(mavonEditor)
+Vue.use(mavonEditor);
+
+SwiperClass.use([Pagination, Navigation]);
+Vue.use(VueAwesomeSwiper);
 Vue.prototype.axios = axios;
 // 设置基地址，api为代理服务器
 axios.defaults.baseURL = '/api';

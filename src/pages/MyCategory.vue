@@ -106,11 +106,19 @@ export default {
                     searchKey: this.inputSearh
                 }
             }).then(res => {
-                this.$message({
-                    message: res.msg,
-                    type: 'success'
-                });
-                this.categoryList = res.data.results;
+                if (res.data.results) {
+                    this.$message({
+                        message: res.msg,
+                        type: 'success'
+                    });
+                    this.categoryList = res.data.results;
+                } else {
+                    this.$message({
+                        message: '分类列表不存在哦！',
+                        type: 'warning'
+                    });
+                }
+
                 // 清理search框
                 this.inputSearh = '';
                 // 请求成功关闭加载中
@@ -133,8 +141,19 @@ export default {
                     searchKey: ''
                 }
             }).then(res => {
-                this.categoryList = res.data.results;
-                this.totalPages = res.data.count;
+                if (res.data.results) {
+                    this.$message({
+                        message: res.msg,
+                        type: 'success'
+                    });
+                    this.categoryList = res.data.results;
+                    this.totalPages = res.data.count;
+                } else {
+                    this.$message({
+                        message: '分类列表不存在哦！',
+                        type: 'warning'
+                    });
+                }
                 loading.close();
             }).catch(err => {
                 console.log(err);
