@@ -143,7 +143,6 @@ export default {
 
 // 主内容区
 .el-main {
-    background-color: #E9EEF3;
     height: 100%;
     margin-top: 60px;
     margin-bottom: 60px;
@@ -183,5 +182,9 @@ body>.el-container {
 
 .el-button {
     color: #9da0a8;
+}
+
+.el-menu.el-menu--horizontal {
+    border: none;
 }
 </style>
