@@ -1,12 +1,7 @@
 <template>
     <div class="container">
         <!-- 搜索区 -->
-        <div class="homeSearch">
-            <div class="homeInput">
-                <el-input v-model="homeSearchInput" placeholder="请输入内容"></el-input>
-                <div class="homeImg"><img src="../assets/homeSearch.svg" alt=""></div>
-            </div>
-        </div>
+        <MySearch></MySearch>
         <div class="content">
             <!-- 文章 -->
             <div class="articlePresentation">
@@ -95,13 +90,14 @@
 </template>
 
 <script>
-
+import MySearch from '@/components/MySearch';
 export default {
     name: 'MyArticle',
+    components: { MySearch },
     data() {
         return {
             articleList: [],//文章列表
-            homeSearchInput: '',//文章搜索
+
             url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
 
         }
@@ -137,46 +133,6 @@ export default {
 .container {
     height: 100%;
     color: #ccc;
-
-    .homeSearch {
-        height: 200px;
-        line-height: 200px;
-        background-color: #A1C7AA;
-
-        .homeInput {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: auto;
-
-            ::v-deep .el-input {
-                width: 30%;
-
-                .el-input__inner {
-                    border-radius: 20px;
-                    text-align: center;
-                    font-size: 16px;
-                    box-shadow: 0 0 1px;
-                }
-
-            }
-
-
-            .homeImg {
-                display: flex;
-                justify-content: center;
-                border-radius: 25px;
-                width: 60px;
-                height: 40px;
-                margin-left: 12px;
-                background: #79A73B;
-
-                img {
-                    width: 50px;
-                }
-            }
-        }
-    }
 
     .content {
         position: relative;

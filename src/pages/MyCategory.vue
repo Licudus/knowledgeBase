@@ -1,11 +1,12 @@
 <template>
     <div class="container">
         <!-- 操作区域 -->
-        <div class="operateArea">
+        <my-search></my-search>
+        <!-- <div class="operateArea">
             <el-input v-model="inputSearh" placeholder="库名"></el-input>
             <el-button type="primary" @click="searchCategory">搜索</el-button>
             <el-button type="success" @click="addCategory">创建</el-button>
-        </div>
+        </div> -->
         <!-- 列表显示区 -->
         <div class="card-center">
             <div class="cardType">
@@ -37,7 +38,9 @@
 </template>
 
 <script>
+import MySearch from '../components/MySearch.vue';
 export default {
+    components: { MySearch },
     name: 'MyCategory',
     data() {
         return {
