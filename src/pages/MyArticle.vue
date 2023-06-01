@@ -28,6 +28,14 @@
             </div>
           </div>
         </el-card>
+        <el-pagination
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page="currentPage"
+          :page-size="4"
+          layout="total, prev, pager, next, jumper"
+          :total="8"
+        ></el-pagination>
       </div>
       <!-- 个人中心 -->
       <MyPersonal></MyPersonal>
@@ -47,7 +55,8 @@ export default {
   data() {
     return {
       articleList: [], //文章列表
-      url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
+      url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+      currentPage: 1 //当前页
     }
   },
   methods: {
@@ -75,6 +84,12 @@ export default {
       this.$router.push({
         path: `articleDetails/${id}`
       })
+    },
+    handleSizeChange(val) {
+      console.log(`每页 ${val} 条`)
+    },
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`)
     }
   },
   mounted() {
